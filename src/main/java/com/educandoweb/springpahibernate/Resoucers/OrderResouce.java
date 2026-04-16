@@ -6,29 +6,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.educandoweb.springpahibernate.Services.UserService;
-import com.educandoweb.springpahibernate.entities.User;
+import com.educandoweb.springpahibernate.Services.OrderService;
+import com.educandoweb.springpahibernate.entities.Order;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResouce {
-    
-    @Autowired 
-	private UserService service;
+@RequestMapping(value = "/orders")
+public class OrderResouce {
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
-       List<User> list = service.findAll();
+    public ResponseEntity<List<Order>> findAll(){
+       List<Order> list = orderService.findAll();
+
         return ResponseEntity.ok().body(list);
     }
 
 
     @GetMapping(value = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id) {
-		User obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
-	}
+    public ResponseEntity<Order> findById(@PathVariable Long id){
+        Order order = orderService.findById(id);
+        return ResponseEntity.ok().body(order);
+    }
+
 }
