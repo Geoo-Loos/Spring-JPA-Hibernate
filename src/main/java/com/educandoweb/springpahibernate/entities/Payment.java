@@ -1,12 +1,17 @@
 package com.educandoweb.springpahibernate.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+
+import java.time.Instant;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,30 +21,44 @@ public class Payment implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Date moment;
+    private Long id;
+    private Instant moment;
+
+    @JsonIgnore
+    @OneToOne
+    @MapsId
+    private Order order;
 
     public Payment() {
     }
 
-    public Payment(Integer id, Date moment) {
+    public Payment(Long id, Instant moment, Order order) {
         this.id = id;
         this.moment = moment;
+        this.order = order;
     }
 
-    public Integer getId() {
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Date getMoment() {
+    public Instant getMoment() {
         return moment;
     }
 
-    public void setMoment(Date moment) {
+    public void setMoment(Instant moment) {
         this.moment = moment;
     }
 
